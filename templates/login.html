@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script defer src="script.js"></script>
+    <link rel="shortcut icon" href="static/header.png" type="image/x-icon">
+    <title>User Login</title>
+</head>
+
+<body>
+    <div class="login-container" id="login">
+        <div class="login-header">
+            <h2>USER LOGIN</h2>
+            <p>Welcome back! Please enter your credentials to access your account.</p>
+        </div>
+        <form class="login-form"
+              data-email-required="Please enter your email address."
+              data-email-invalid="This is not a valid email format."
+              data-password-required="Please enter your password."
+              data-password-short="Your password needs to be at least 8 characters."
+              data-login-success="Successfully logged in!">
+            <div id="login-errors" class="error-container"></div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                <input type="email" id="email" class="form-input" placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <span class="input-icon"><i class="fas fa-lock"></i></span>
+                <input type="password" id="password" class="form-input" placeholder="Enter your password">
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div id="login-success" class="success-container"></div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <div class="social-login">
+            <p>Or login with:</p>
+            <div class="social-buttons">
+                <button class="social-button facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="social-button twitter">
+                    <i class="fab fa-twitter"></i>
+                </button>
+                <button class="social-button google">
+                    <i class="fab fa-google"></i>
+                </button>
+            </div>
+        </div>
+        <div class="create-account">
+            <h5>Does not have account?</h5>
+            <a href="#">Create an account</a>
+        </div>
+    </div>
+    
+    <div class="signup-container" id="signup">
+        <div class="signup-header">
+            <h2>USER SIGN-UP</h2>
+            <p>Welcome Please enter your details to create your account.</p>
+        </div>
+        <form class="signup-form"
+              data-email-required="Please enter your email address."
+              data-email-invalid="This email format is not valid."
+              data-password-required="Please enter a password."
+              data-password-short="Password must be at least 8 characters long."
+              data-signup-success="Your account has been created!">
+            <div id="signup-errors" class="error-container"></div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                <input type="email" id="email" class="form-input" placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <span class="input-icon"><i class="fas fa-lock"></i></span>
+                <input type="password" id="password" class="form-input" placeholder="Enter your password">
+            </div>
+            <div id="signup-success" class="success-container"></div>
+            <button type="submit" class="login-button">Sign-up</button>
+        </form>
+        <div class="social-signup">
+            <p>Or sign-up with:</p>
+            <div class="social-buttons">
+                <button class="social-button facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="social-button twitter">
+                    <i class="fab fa-twitter"></i>
+                </button>
+                <button class="social-button google">
+                    <i class="fab fa-google"></i>
+                </button>
+            </div>
+        </div>
+        <div class="create-account">
+            <h5>Do you have account?</h5><a href="#">Sign-up</a>
+        </div>
+    </div>
+    
+    <style>
+    /* Basic styling for the error container */
+    .error-container {
+        color: red;
+        margin-top: 10px;
+    }
+    
+    .error-container ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    
+    /* Basic styling for the success container */
+    .success-container {
+        color: green;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    </style>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.querySelector(".login-form");
+    const emailLoginInput = document.querySelector("#login #email");
+    const passwordLoginInput = document.querySelector("#login #password");
+    const loginErrorContainer = document.getElementById("login-errors");
+    const loginSuccessMessage = document.getElementById("login-success");
+    const loginContainer = document.getElementById("login");
+    const signupContainer = document.getElementById("signup");
+    const createAccountLink = document.querySelector("#login .create-account a");
+    const haveAccountLink = document.querySelector("#signup .create-account a");
+    const signupForm = document.querySelector(".signup-form");
+    const emailSignupInput = document.querySelector("#signup #email");
+    const passwordSignupInput = document.querySelector("#signup #password");
+    const signupErrorContainer = document.getElementById("signup-errors");
+    const signupSuccessMessage = document.getElementById("signup-success");
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function isValidPassword(password) {
+        return password.length >= 8;
+    }
+
+    function displayMessage(container, message, isError = false) {
+        if (container) {
+            container.textContent = message;
+            container.className = isError ? "error-container" : "success-container";
+        }
+    }
+
+    function displayErrors(container, messages) {
+        if (container) {
+            container.innerHTML = "";
+            container.className = "error-container";
+            if (messages && messages.length > 0) {
+                const ul = document.createElement("ul");
+                messages.forEach(message => {
+                    const li = document.createElement("li");
+                    li.textContent = message;
+                    ul.appendChild(li);
+                });
+                container.appendChild(ul);
+            }
+        }
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const emailValue = emailLoginInput.value.trim();
+            const passwordValue = passwordLoginInput.value.trim();
+            const errorMessages = [];
+
+            if (emailValue === "") errorMessages.push(loginForm.dataset.emailRequired || "Email is required.");
+            else if (!isValidEmail(emailValue)) errorMessages.push(loginForm.dataset.emailInvalid || "Please enter a valid email address.");
+            if (passwordValue === "") errorMessages.push(loginForm.dataset.passwordRequired || "Password is required.");
+            else if (!isValidPassword(passwordValue)) errorMessages.push(loginForm.dataset.passwordShort || "Password must be at least 8 characters long.");
+
+            if (errorMessages.length > 0) {
+                displayErrors(loginErrorContainer, errorMessages);
+                displayMessage(loginSuccessMessage, "");
+            } else {
+                displayMessage(loginSuccessMessage, loginForm.dataset.loginSuccess || "Login successful!", false);
+                setTimeout(() => { window.location.href = "profile.html"; }, 1500);
+            }
+        });
+    }
+
+    if (signupForm) {
+        signupForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const emailValue = emailSignupInput.value.trim();
+            const passwordValue = passwordSignupInput.value.trim();
+            const errorMessages = [];
+
+            if (emailValue === "") errorMessages.push(signupForm.dataset.emailRequired || "Email is required.");
+            else if (!isValidEmail(emailValue)) errorMessages.push(signupForm.dataset.emailInvalid || "Please enter a valid email address.");
+            if (passwordValue === "") errorMessages.push(signupForm.dataset.passwordRequired || "Password is required.");
+            else if (!isValidPassword(passwordValue)) errorMessages.push(signupForm.dataset.passwordShort || "Password must be at least 8 characters long.");
+
+            if (errorMessages.length > 0) {
+                displayErrors(signupErrorContainer, errorMessages);
+                displayMessage(signupSuccessMessage, "");
+            } else {
+                displayMessage(signupSuccessMessage, signupForm.dataset.signupSuccess || "Account created successfully!", false);
+                setTimeout(() => { window.location.href = "profile.html"; }, 1500);
+            }
+        });
+    }
+
+    if (createAccountLink && loginContainer && signupContainer) {
+        createAccountLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            loginContainer.style.display = "none";
+            signupContainer.style.display = "block";
+            displayErrors(loginErrorContainer, []);
+            displayMessage(loginSuccessMessage, "");
+            displayErrors(signupErrorContainer, []);
+            displayMessage(signupSuccessMessage, "");
+        });
+    }
+
+    if (haveAccountLink && loginContainer && signupContainer) {
+        haveAccountLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            signupContainer.style.display = "none";
+            loginContainer.style.display = "block";
+            displayErrors(loginErrorContainer, []);
+            displayMessage(loginSuccessMessage, "");
+            displayErrors(signupErrorContainer, []);
+            displayMessage(signupSuccessMessage, "");
+        });
+    }
+});
+    </script>
+</body>
+</html>

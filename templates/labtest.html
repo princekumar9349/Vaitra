@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaitra - LabTest</title>
+    <script src="" defer></script>
+    <link rel="stylesheet" href="static/labtest.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="shortcut icon" href="static/header.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <a href="index.html"><img src="static/header.png" alt="Logo">
+                    <div class="head"><h1>Vaitra</h1><p>Smartflow BetterCare</p></div></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#doctors">Doctors</a></li>
+                <li><a href="index.html#appointment">Appointments</a></li>
+                <li><a href="index.html#artical">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="profile.html"><i class="fa-regular fa-circle-user"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="your-drive">
+        <aside class="drive-sidebar">
+          <h2 class="sidebar-title">Your Drive</h2>
+          <ul class="sidebar-nav">
+            <li class="nav-item"><i class="fa-solid fa-user"></i><a href="profile.html">Profile</a></li>
+            <li class="nav-item"><i class="fa-solid fa-file-medical"></i><a href="medical.html">Medical records</a></li>
+            <li class="nav-item"><i class="fa-solid fa-calendar-check"></i><a href="appointment.html">Appointments</a></li>
+            <li class="nav-item"><i class="fa-solid fa-microscope"></i><a href="labtest.html">Lab Tests</a></li>
+            <li class="nav-item"><i class="fa-solid fa-wallet"></i><a href="payment.html">Payments</a></li>
+          </ul>
+        </aside>
+      
+        <main class="drive-content">
+          <div class="content-header">
+            <div class="user-profile">
+              <span class="profile-icon"><i class="fa-solid fa-user"></i></span>
+              <span class="user-name">Patient Name</span>
+            </div>
+            <button class="upload-button">Upload Lab-records</button>
+            <div id="uploadModal" class="modal">
+              <div class="modal-content">
+                  <span class="close-btn">&times;</span>
+                  <h2 id="uploadText">Upload Lab-Records</h2>
+                  <p>Select the file(s) you want to upload:</p>
+                  <input type="file" id="fileUpload" multiple>
+                  <div class="button-container">
+                      <button class="upload-confirm-button">Upload</button>
+                      <button class="cancel-button">Cancel</button>
+                  </div>
+              </div>
+          </div>
+          </div>
+          <h2>Lab-Test Report</h2>
+          <div class="content-body">
+            <div class="empty-state">
+                <i class="fa-regular fa-folder-open"></i>
+              <p class="empty-message">You do not have any labtest records</p>
+            </div>
+          </div>
+        </main>
+      </div>
+      <script>
+        const uploadButton = document.querySelector('.upload-button');
+const uploadModal = document.getElementById('uploadModal');
+const uploadText = document.getElementById('uploadText');
+const closeButton = document.querySelector('.close-btn');
+
+function openUploadModal(type) {
+    if (uploadModal && uploadText) {
+        uploadText.innerText = `Upload ${type}`;
+        uploadModal.style.display = 'flex';
+    }
+}
+
+document.querySelectorAll('.service-box').forEach(function(box) {
+    box.addEventListener('click', function() {
+        const type = this.getAttribute('data-type');
+        openUploadModal(type);
+    });
+});
+
+if (uploadButton) {
+    uploadButton.addEventListener('click', function() {
+        openUploadModal('records');
+    });
+}
+
+if (closeButton) {
+    closeButton.addEventListener('click', function() {
+        if (uploadModal) {
+            uploadModal.style.display = 'none';
+        }
+    });
+}
+
+window.addEventListener('click', function(event) {
+    if (event.target === uploadModal) {
+        uploadModal.style.display = 'none';
+    }
+});
+
+const uploadConfirmButton = document.querySelector('.upload-confirm-button');
+const fileUploadInput = document.getElementById('fileUpload');
+
+if (uploadConfirmButton && fileUploadInput) {
+    uploadConfirmButton.addEventListener('click', function() {
+        const files = fileUploadInput.files;
+        if (files.length > 0) {
+            console.log('Selected files:', files);
+            alert('Simulating upload...');
+            uploadModal.style.display = 'none';
+        } else {
+            alert('Please select files to upload.');
+        }
+    });
+}
+
+const cancelButton = document.querySelector('.cancel-button');
+if (cancelButton) {
+    cancelButton.addEventListener('click', function() {
+        if (uploadModal) {
+            uploadModal.style.display = 'none';
+        }
+    });
+}
+      </script>
+</body>
+</html>
