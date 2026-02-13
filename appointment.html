@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaitra - Appointment</title>
+    <script src="" defer></script>
+    <link rel="stylesheet" href="static/payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="shortcut icon" href="header.png" type="image/x-icon">
+</head>
+<style>
+    body {
+  margin: 0;
+  background: #f0f8ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  height: 1.875rem;
+  padding: 0.9375rem 3.125rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .navbar-logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .navbar-logo img {
+  width: 4.5rem;
+}
+
+.navbar .head{
+  align-items: center;
+  justify-content: center;
+  margin-top: -0.4rem;
+}
+.navbar .head h1 {
+  font-size: 1.375rem;
+  color: #004080;
+  padding-left: .2rem;
+}
+.navbar .head p {
+  margin-top: -1.4rem;
+  font-size: 0.8rem;
+  color: #004080;
+  padding-left: .2rem;
+}
+.navbar .nav-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.navbar .nav-links li {
+  list-style: none;
+  font-weight: 900;
+}
+
+.navbar .nav-links a {
+  text-decoration: none;
+  color: #004080;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-links a i {
+  font-size: 1.875rem;
+}
+
+.navbar .nav-links a:hover {
+  color: #4d93ee;
+}
+
+.navbar .nav-links li:hover {
+  transform: translateY(-0.125rem);
+  transition: transform 0.3s ease-in-out;
+}
+.your-drive {
+  display: flex;
+  background-color: #e6f7ff;
+  min-height: 91vh;
+  
+}
+
+.drive-sidebar {
+  width: 260px;
+  background-color: #fff;
+  padding: 30px;
+  border-top: 1px solid #eee;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  margin-bottom: 12px;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+}
+
+.nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  color: #555;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  
+}
+
+.nav-item a i {
+  margin-right: 12px;
+  font-size: 1.1rem;
+  align-items: center;
+  color: #555;
+  display: flex;
+}
+
+.nav-item:hover { /* Corrected hover selector */
+  background-color: #d9f0ff;
+  color: #007bff;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.drive-content {
+  flex-grow: 1;
+  padding: 40px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #6b6b6b;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  color: #666;
+}
+
+.profile-icon {
+  font-size: 2rem;
+  margin-right: 15px;
+  color: #000000;
+  background-color: #e0f7fa;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.content-tabs {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.tab {
+  margin-left: 25px;
+}
+
+.tab a {
+  display: block;
+  padding: 12px 18px;
+  color: #777;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: border-bottom 0.2s ease-in-out, color 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.tab a:hover {
+  color: #007bff;
+  border-bottom: 3px solid #add8e6;
+}
+
+
+.upload-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.2s ease;
+  font-weight: bold;
+}
+
+.upload-button:hover {
+  background-color: #218838;
+}
+
+.content-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 300px;
+  color: #777;
+}
+
+.empty-state i {
+  font-size: 5rem;
+  justify-items: center;
+}
+
+.empty-message {
+  font-size: 1.1rem;
+}
+
+</style>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <a href="index.html"><img src="header.png" alt="Logo">
+                    <div class="head"><h1>Vaitra</h1><p>Smartflow BetterCare</p></div></a>
+            </div>
+            <ul class="nav-links">
+              <li><a href="index.html#services">Services</a></li>
+              <li><a href="index.html#doctors">Doctors</a></li>
+              <li><a href="index.html#appointment">Appointments</a></li>
+              <li><a href="index.html#artical">Articles</a></li>
+              <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="profile.html"><i class="fa-regular fa-circle-user"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="your-drive">
+        <aside class="drive-sidebar">
+          <h2 class="sidebar-title">Your Drive</h2>
+          <ul class="sidebar-nav">
+            <li class="nav-item"><i class="fa-solid fa-user"></i><a href="profile.html">Profile</a></li>
+            <li class="nav-item"><i class="fa-solid fa-file-medical"></i><a href="medical.html">Medical records</a></li>
+            <li class="nav-item"><i class="fa-solid fa-calendar-check"></i><a href="appointment.html">Appointments</a></li>
+            <li class="nav-item"><i class="fa-solid fa-microscope"></i><a href="labtest.html">Lab Tests</a></li>
+            <li class="nav-item"><i class="fa-solid fa-wallet"></i><a href="payment.html">Payments</a></li>
+          </ul>
+        </aside>
+      
+        <main class="drive-content">
+          <div class="content-header">
+            <div class="user-profile">
+              <span class="profile-icon"><i class="fa-solid fa-user"></i></span>
+              <span class="user-name">Patient Name</span>
+            </div>
+          </div>
+          <div class="content-body">
+            <div id="appointmentHistory">
+                <!-- Appointment history will be displayed here -->
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const appointmentHistory = document.getElementById('appointmentHistory');
+        const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+
+        if (appointments.length === 0) {
+            appointmentHistory.innerHTML = '<i class="fa-regular fa-folder-open" width="50%"></i><p>You do not have any appointments yet.</p>';
+        } else {
+            const appointmentList = document.createElement('ul');
+
+            appointments.forEach(appointment => {
+                const appointmentItem = document.createElement('li');
+                appointmentItem.innerHTML = `
+                    <strong>Name:</strong> ${appointment.patientName} <br>
+                    <strong>Doctor:</strong> ${appointment.doctor} <br>
+                    <strong>Date:</strong> ${appointment.date} <br>
+                    <strong>Time:</strong> ${appointment.time} <br>
+                    <strong>Contact:</strong> ${appointment.contact} <br><br>
+                `;
+                appointmentList.appendChild(appointmentItem);
+            });
+
+            appointmentHistory.appendChild(appointmentList);
+        }
+    });
+</script>
+</body>
+</html>
